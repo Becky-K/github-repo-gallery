@@ -88,6 +88,16 @@ ul {
     padding: 0;
 }
 
+li {
+    font-family: "Open Sans", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #f86d58;
+    text-transform: capitalize;
+    font-weight: bold;
+} 
+
 .container {
     display: flex;
     justify-content: center;
