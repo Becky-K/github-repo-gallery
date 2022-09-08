@@ -192,7 +192,7 @@ section.repo-data {
     padding: 10px;
 }
 
-.repo-list h3:hover {
+.repo-list li:hover {
     background-color: #eee9ff;
     cursor: pointer;
 }
