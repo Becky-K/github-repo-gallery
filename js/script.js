@@ -8,6 +8,11 @@ const reposList = document.querySelector("ul");
 const repoSection = document.querySelector(".repos")
 //Selects to section where the repo information appears
 const repoData = document.querySelector(".repo-data")
+//Back to repo button
+const returnButton = document.querySelector("button");
+//Input search bar
+const filterInput = document.querySelector("input");
+
 
 
 //function to fetch data from github
@@ -48,6 +53,7 @@ const reposFetch = async function(){
 
 //function to display each repo
 const repoDisplay = function(repos){
+    filterInput.classList.remove("hide");
     for (const repo of repos){
         const li = document.createElement("li");
         li.classList.add("repo");
@@ -68,6 +74,7 @@ reposList.addEventListener("click", function (e) {
 const repoInfo = async function(repoName){
     const specificRepo = await fetch(`https://api.github.com/repos/${username}/${repoName}`)
     const specificRepoInfo = await specificRepo.json();
+    console.log(specificRepoInfo);
     //Fetch languages
     const fetchLanguages = await fetch(specificRepoInfo.languages_url);
     const languageData = await fetchLanguages.json();
@@ -91,6 +98,27 @@ const repoInfoDisplay = function (specificRepoInfo, languages){
     repoData.append(div);
     repoData.classList.remove("hide");
     repoSection.classList.add("hide");
+    returnButton.classList.remove("hide");
 };
 
+//Click event for return button
+returnButton.addEventListener("click", function(){
+    repoSection.classList.remove("hide");
+    repoData.classList.add("hide");
+    returnButton.classList.add("hide");
+});
+
+filterInput.addEventListener("input", function(e){
+    const inputValue = filterInput.value;
+    const allRepos = document.querySelectorAll(".repo");
+    const lowerCaseInput = inputValue.toLowerCase();
+    for (repo of allRepos){
+        const lcRepoTitle = repo.innerText.toLowerCase();
+        if (lcRepoTitle.includes(lowerCaseInput)){
+            repo.classList.remove("hide");
+        } else {
+            repo.classList.add("hide");
+        };
+    }
+});
 
